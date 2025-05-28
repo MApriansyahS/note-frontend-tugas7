@@ -1,11 +1,13 @@
 steps:
-  - name: 'node:18'  
+  - name: 'node:18'
     entrypoint: 'npm'
     args: ['install']
 
   - name: 'node:18'
-    entrypoint: 'npm'
-    args: ['run', 'build']
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - 'chmod +x node_modules/.bin/vite && npm run build'
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     args: ['gcloud', 'app', 'deploy', 'app.yaml', '--quiet']
